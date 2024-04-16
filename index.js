@@ -1,21 +1,23 @@
-// Add your code here
-function submitData(userName, userEmail) {
-  const userInfo = {
-    name: userName,
-    email: userEmail,
-  };
+function submitData( name, email ) {
 
-  const configUser = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(userInfo),
-  };
-
-  return fetch("http://localhost:3000/users", configUser)
-    .then((response) => response.json())
-    .then((data) => (document.body.innerHTML = data.id))
-    .catch((error) => (document.body.innerHTML = error.message));
-}
+    return fetch( 'http://localhost:3000/users', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify( {
+          name,
+          email
+        } )
+      } )
+      .then( function ( response ) {
+        return response.json()
+      } )
+      .then( function ( object ) {
+        document.body.innerHTML = object[ "id" ]
+      } )
+      .catch( function ( error ) {
+        document.body.innerHTML = error.message
+      } )
+  }
